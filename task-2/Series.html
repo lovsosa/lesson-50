@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Сериалы</title>
+
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <style>
+      body {
+        margin: 0;
+        font-family: sans-serif;
+      }
+
+      .layout {
+        display: grid;
+        grid-template-columns: 200px 1fr;
+        grid-template-rows: 60px 1fr 60px;
+        height: 100vh;
+      }
+
+      .header {
+        grid-column: 1 / 3;
+        background: #111;
+        color: white;
+        display: flex;
+        align-items: center;
+        padding: 0 20px;
+      }
+
+      .sidebar {
+        background: #1e1e1e;
+        color: white;
+        padding: 20px;
+      }
+
+      .sidebar a {
+        display: block;
+        margin-bottom: 10px;
+        color: #ccc;
+        text-decoration: none;
+      }
+
+      .content {
+        background: #242121;
+        padding: 20px;
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 20px;
+        align-items: center;
+      }
+
+      .footer {
+        grid-column: 1 / 3;
+        background: #111;
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .movieCard {
+        width: 200px;
+        border-radius: 10px;
+        overflow: hidden;
+        background: #111;
+        color: #fff;
+        transition: transform 0.3s;
+        justify-self: center;
+        cursor: pointer;
+      }
+
+      .movieCard:hover {
+        transform: scale(1.05);
+      }
+
+      .moviePoster img {
+        width: 100%;
+      }
+
+      .movieInfo {
+        padding: 10px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="app"></div>
+
+    <script type="text/babel">
+      const container = document.getElementById('app');
+
+      const Header = () => (
+        <div className="header">
+          <h2>Мой топ фильмов и сериалов</h2>
+        </div>
+      );
+
+      const Sidebar = () => (
+        <div className="sidebar">
+          <a href="Movie.html">Фильмы</a>
+          <a href="Series.html">Сериалы</a>
+        </div>
+      );
+
+      const MovieCart = ({ name, image, year }) => (
+        <div className="movieCard">
+          <div className="moviePoster">
+            <img src={image} alt={name} />
+          </div>
+          <div className="movieInfo">
+            <h3>{name}</h3>
+            <span>{year}</span>
+          </div>
+        </div>
+      );
+
+      const Content = () => {
+        const movieData = [
+          { id: 1, name: 'Во все тяжкие', image: '../image/BreakingBad.webp', year: 2008 },
+          {
+            id: 2,
+            name: 'Ходячие мертвецы',
+            image: '../image/WalkingDead.webp',
+            year: 2010,
+          },
+          {
+            id: 3,
+            name: 'Игра престолов',
+            image: '../image/GameOfTrones.webp',
+            year: 2011,
+          },
+          {
+            id: 4,
+            name: 'Викинги',
+            image: '../image/Vikings.webp',
+            year: 2014,
+          },
+        ];
+
+        return (
+          <div className="content">
+            {movieData.map((item) => (
+              <MovieCart key={item.id} {...item} />
+            ))}
+          </div>
+        );
+      };
+
+      const Footer = () => (
+        <div className="footer">
+          <p>Этот топ носит абсолютно субъективный характер.</p>
+        </div>
+      );
+
+      const App = () => (
+        <div className="layout">
+          <Header />
+          <Sidebar />
+          <Content />
+          <Footer />
+        </div>
+      );
+
+      ReactDOM.createRoot(container).render(<App />);
+    </script>
+  </body>
+</html>
